@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
+
+final class OnboardingScreensViewModel {
+    
+    
+}
+
