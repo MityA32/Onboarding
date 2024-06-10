@@ -16,6 +16,10 @@ enum CustomFont {
         UIFont(name: "SFProDisplay\(weight.rawValue)", size: size)
     }
     
+    static func sfPro(ofSize size: CGFloat, weight: Weight) -> UIFont? {
+        UIFont(name: "SF-Pro", size: size)
+    }
+    
     
     enum Weight: String {
         case bold = "-Bold"

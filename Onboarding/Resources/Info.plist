@@ -9,13 +9,7 @@
 		<string>SFProDisplay-Regular.otf</string>
 		<string>SFProDisplay-Semibold.otf</string>
 		<string>SFUIText-Semibold.ttf</string>
+		<string>SF-Pro.ttf</string>
 	</array>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict/>
-	</dict>
 </dict>
 </plist>

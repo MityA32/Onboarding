@@ -9,41 +9,64 @@ import Foundation
 import RxSwift
 import RxRelay
 
+enum OnboardingPageType {
+    case question
+    case subscription
+}
+
+struct OnboardingPageSetup {
+    let id: Int
+    let type: OnboardingPageType
+    let item: OnboardingItem?
+    
+    init(id: Int, _ type: OnboardingPageType, _ item: OnboardingItem? = nil) {
+        self.id = id
+        self.type = type
+        self.item = item
+    }
+}
+
 final class OnboardingScreensViewModel {
 
     let inNewPageClick = PublishSubject<Void>()
     let inCloseClick = PublishSubject<Void>()
     let inRestorePurchaseClick = PublishSubject<Void>()
     let manageOnboarding = PublishSubject<OnboardingEvent>()
-    let currentPage = BehaviorRelay<OnboardingItem?>(value: nil)
+    let currentPage: BehaviorRelay<OnboardingPageSetup>
+    let optionSelected = BehaviorRelay(value: false)
+    
 
     let disposeBag = DisposeBag()
 
-    lazy var pages: [OnboardingItem] = []
+    var onboardingPages: [OnboardingPageSetup] = []
 
     private let subscriptionService: SubscriptionServiceProtocol
-    private let networkService: Network<OnboardingEndpoint>
     
-    init(subscriptionService: SubscriptionServiceProtocol, networkService: Network<OnboardingEndpoint>) {
+    init(subscriptionService: SubscriptionServiceProtocol, pages: [OnboardingPageSetup]) {
         self.subscriptionService = subscriptionService
-        self.networkService = networkService
+        let firstPage = pages.first ?? OnboardingPageSetup(id: 1, .subscription)
+        self.currentPage = BehaviorRelay<OnboardingPageSetup>(value: firstPage)
+        onboardingPages = pages
         setupRx()
     }
     
     private func setupRx() {
         inNewPageClick
             .withLatestFrom(currentPage)
-            .filter { [weak self] in $0?.id ?? 0 < (self?.pages.count ?? 0) - 1 }
-            .map { [weak self] page -> OnboardingItem? in
-                guard let self, let page else { return nil }
-                return self.pages[page.id + 1]
+            .map { [weak self] page -> OnboardingPageSetup? in
+                print("hello")
+                guard let self else { return nil }
+                let nextPageIndex = currentPage.value.id + 1
+                guard nextPageIndex - 1 < self.onboardingPages.count else { return nil }
+                return self.onboardingPages[nextPageIndex - 1]
             }
+            .compactMap { $0 }
             .bind(to: currentPage)
             .disposed(by: disposeBag)
         
         let processPaymentObservable = inNewPageClick
             .withLatestFrom(currentPage)
-            .filter { $0?.id ?? 0 == 3 }
+            .filter { [weak self] in $0.id == (self?.onboardingPages.count ?? -1)}
             .skip(1)
             .flatMap { [weak self] _ -> Single<Result<Void, PaymentError>> in
                self?.subscriptionService.processPayment() ?? .error(PaymentError.cantMakePayment)
@@ -77,7 +100,7 @@ final class OnboardingScreensViewModel {
             .map { _ in .pop }
             .bind(to: manageOnboarding)
             .disposed(by: disposeBag)
-        
+
     }
 }
 

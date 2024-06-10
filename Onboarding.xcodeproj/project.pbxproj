@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		64FB9AA449AE253308E4F447 /* Pods_Onboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C5BB0F6F770A33E35774D1 /* Pods_Onboarding.framework */; };
 		9332A36E2C11C1B5004E195E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9332A36D2C11C1B5004E195E /* AppDelegate.swift */; };
-		9332A3722C11C1B5004E195E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9332A3712C11C1B5004E195E /* ViewController.swift */; };
+		9332A3722C11C1B5004E195E /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9332A3712C11C1B5004E195E /* OnboardingViewController.swift */; };
 		9332A3772C11C1B8004E195E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9332A3762C11C1B8004E195E /* Assets.xcassets */; };
 		9332A37A2C11C1B8004E195E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9332A3792C11C1B8004E195E /* Base */; };
 		93D110992C11FC0500077DFB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D110982C11FC0500077DFB /* AppCoordinator.swift */; };
@@ -34,6 +34,14 @@
 		93D110CF2C131C7600077DFB /* OnboardingItemsResponse+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D110CE2C131C7600077DFB /* OnboardingItemsResponse+Mapping.swift */; };
 		93D110D12C13246600077DFB /* OnboardingItemsRequest+Mapping.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D110D02C13246600077DFB /* OnboardingItemsRequest+Mapping.swift.swift */; };
 		93D110D32C13267300077DFB /* EndpointsInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D110D22C13267300077DFB /* EndpointsInstructions.swift */; };
+		93FEE74E2C13BCDC003C1798 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE74D2C13BCDC003C1798 /* Parameters.swift */; };
+		93FEE7502C13BE9A003C1798 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE74F2C13BE9A003C1798 /* NSAttributedString+Extension.swift */; };
+		93FEE7522C14AFCE003C1798 /* OnboardingItemPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE7512C14AFCE003C1798 /* OnboardingItemPageView.swift */; };
+		93FEE7542C14AFE3003C1798 /* OnboardingSubscriptionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE7532C14AFE3003C1798 /* OnboardingSubscriptionPageView.swift */; };
+		93FEE7572C14B270003C1798 /* SubscriptionManagerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE7562C14B270003C1798 /* SubscriptionManagerBarView.swift */; };
+		93FEE7592C14C33E003C1798 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FEE7582C14C33E003C1798 /* SF-Pro.ttf */; };
+		93FEE75D2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */; };
+		93FEE75F2C15FFC3003C1798 /* OnboardingActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE75E2C15FFC3003C1798 /* OnboardingActionButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +49,7 @@
 		47C5BB0F6F770A33E35774D1 /* Pods_Onboarding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Onboarding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9332A36A2C11C1B5004E195E /* Onboarding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Onboarding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9332A36D2C11C1B5004E195E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9332A3712C11C1B5004E195E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9332A3712C11C1B5004E195E /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		9332A3762C11C1B8004E195E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9332A3792C11C1B8004E195E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9332A37B2C11C1B8004E195E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +75,14 @@
 		93D110CE2C131C7600077DFB /* OnboardingItemsResponse+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingItemsResponse+Mapping.swift"; sourceTree = "<group>"; };
 		93D110D02C13246600077DFB /* OnboardingItemsRequest+Mapping.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingItemsRequest+Mapping.swift.swift"; sourceTree = "<group>"; };
 		93D110D22C13267300077DFB /* EndpointsInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsInstructions.swift; sourceTree = "<group>"; };
+		93FEE74D2C13BCDC003C1798 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		93FEE74F2C13BE9A003C1798 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		93FEE7512C14AFCE003C1798 /* OnboardingItemPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingItemPageView.swift; sourceTree = "<group>"; };
+		93FEE7532C14AFE3003C1798 /* OnboardingSubscriptionPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSubscriptionPageView.swift; sourceTree = "<group>"; };
+		93FEE7562C14B270003C1798 /* SubscriptionManagerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManagerBarView.swift; sourceTree = "<group>"; };
+		93FEE7582C14C33E003C1798 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
+		93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardsCollectionViewCell.swift; sourceTree = "<group>"; };
+		93FEE75E2C15FFC3003C1798 /* OnboardingActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingActionButtonView.swift; sourceTree = "<group>"; };
 		FF7BB7FCA19095A643A0C6E9 /* Pods-Onboarding.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onboarding.debug.xcconfig"; path = "Target Support Files/Pods-Onboarding/Pods-Onboarding.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +199,7 @@
 				93D110C42C1217F600077DFB /* Networking */,
 				93D110962C11F9C600077DFB /* Extensions */,
 				93D110BB2C120CCA00077DFB /* Constants.swift */,
+				93FEE74D2C13BCDC003C1798 /* Parameters.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -190,6 +207,7 @@
 		93D110962C11F9C600077DFB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				93FEE74F2C13BE9A003C1798 /* NSAttributedString+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,7 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				93D110C72C121AFF00077DFB /* Subviews */,
-				9332A3712C11C1B5004E195E /* ViewController.swift */,
+				9332A3712C11C1B5004E195E /* OnboardingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -274,6 +292,7 @@
 		93D110B02C120BD200077DFB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				93FEE7582C14C33E003C1798 /* SF-Pro.ttf */,
 				93D110B32C120C8800077DFB /* SFProDisplay-Bold.otf */,
 				93D110B42C120C8800077DFB /* SFProDisplay-Medium.otf */,
 				93D110B62C120C8900077DFB /* SFProDisplay-Regular.otf */,
@@ -311,7 +330,10 @@
 		93D110C72C121AFF00077DFB /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				93FEE75A2C15FAC1003C1798 /* Item */,
+				93FEE7552C14B259003C1798 /* Subscription */,
 				93D110C82C121B1F00077DFB /* OnboardingPageView.swift */,
+				93FEE75E2C15FFC3003C1798 /* OnboardingActionButtonView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -333,6 +355,32 @@
 				93D110D02C13246600077DFB /* OnboardingItemsRequest+Mapping.swift.swift */,
 			);
 			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		93FEE7552C14B259003C1798 /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				93FEE7532C14AFE3003C1798 /* OnboardingSubscriptionPageView.swift */,
+				93FEE7562C14B270003C1798 /* SubscriptionManagerBarView.swift */,
+			);
+			path = Subscription;
+			sourceTree = "<group>";
+		};
+		93FEE75A2C15FAC1003C1798 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				93FEE75B2C15FB2A003C1798 /* Cells */,
+				93FEE7512C14AFCE003C1798 /* OnboardingItemPageView.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		93FEE75B2C15FB2A003C1798 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,6 +448,7 @@
 				93D110B22C120BE600077DFB /* SFUIText-Semibold.ttf in Resources */,
 				93D110B72C120C8900077DFB /* SFProDisplay-Bold.otf in Resources */,
 				9332A37A2C11C1B8004E195E /* Base in Resources */,
+				93FEE7592C14C33E003C1798 /* SF-Pro.ttf in Resources */,
 				93D110BA2C120C8900077DFB /* SFProDisplay-Regular.otf in Resources */,
 				93D110B82C120C8900077DFB /* SFProDisplay-Medium.otf in Resources */,
 			);
@@ -458,19 +507,26 @@
 				93D110A62C11FD1500077DFB /* PaymentError.swift in Sources */,
 				93D110C62C12181E00077DFB /* NetworkService.swift in Sources */,
 				93D110CF2C131C7600077DFB /* OnboardingItemsResponse+Mapping.swift in Sources */,
+				93FEE75F2C15FFC3003C1798 /* OnboardingActionButtonView.swift in Sources */,
 				93D110D32C13267300077DFB /* EndpointsInstructions.swift in Sources */,
 				93D110A12C11FCDD00077DFB /* OnboardingScreensViewModel.swift in Sources */,
+				93FEE7502C13BE9A003C1798 /* NSAttributedString+Extension.swift in Sources */,
+				93FEE75D2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift in Sources */,
 				93D110992C11FC0500077DFB /* AppCoordinator.swift in Sources */,
 				93D110AA2C11FD5E00077DFB /* PrivacyCenterOption.swift in Sources */,
-				9332A3722C11C1B5004E195E /* ViewController.swift in Sources */,
+				9332A3722C11C1B5004E195E /* OnboardingViewController.swift in Sources */,
 				93D110AF2C120A7400077DFB /* OnboardingItem.swift in Sources */,
 				93D110D12C13246600077DFB /* OnboardingItemsRequest+Mapping.swift.swift in Sources */,
 				93D110A82C11FD4300077DFB /* SubscriptionServiceProtocol.swift in Sources */,
 				93D110C32C1210B000077DFB /* OnboardingEvent.swift in Sources */,
+				93FEE7572C14B270003C1798 /* SubscriptionManagerBarView.swift in Sources */,
 				93D1109C2C11FC3400077DFB /* Coordinator.swift in Sources */,
+				93FEE7542C14AFE3003C1798 /* OnboardingSubscriptionPageView.swift in Sources */,
 				93D110CC2C1319EF00077DFB /* APIEndpoints.swift in Sources */,
+				93FEE74E2C13BCDC003C1798 /* Parameters.swift in Sources */,
 				9332A36E2C11C1B5004E195E /* AppDelegate.swift in Sources */,
 				93D110C12C120EBD00077DFB /* InAppPurchaseService.swift in Sources */,
+				93FEE7522C14AFCE003C1798 /* OnboardingItemPageView.swift in Sources */,
 				93D110AD2C120A1B00077DFB /* ActionButtonConfig.swift in Sources */,
 				93D110BC2C120CCA00077DFB /* Constants.swift in Sources */,
 			);
@@ -622,7 +678,6 @@
 				INFOPLIST_FILE = Onboarding/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -652,7 +707,6 @@
 				INFOPLIST_FILE = Onboarding/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
