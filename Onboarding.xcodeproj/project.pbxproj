@@ -42,6 +42,7 @@
 		93FEE7592C14C33E003C1798 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FEE7582C14C33E003C1798 /* SF-Pro.ttf */; };
 		93FEE75D2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */; };
 		93FEE75F2C15FFC3003C1798 /* OnboardingActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE75E2C15FFC3003C1798 /* OnboardingActionButtonView.swift */; };
+		93FEE7612C171A94003C1798 /* OnboardingItemOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FEE7602C171A94003C1798 /* OnboardingItemOptionsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		93FEE7582C14C33E003C1798 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardsCollectionViewCell.swift; sourceTree = "<group>"; };
 		93FEE75E2C15FFC3003C1798 /* OnboardingActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingActionButtonView.swift; sourceTree = "<group>"; };
+		93FEE7602C171A94003C1798 /* OnboardingItemOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingItemOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		FF7BB7FCA19095A643A0C6E9 /* Pods-Onboarding.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Onboarding.debug.xcconfig"; path = "Target Support Files/Pods-Onboarding/Pods-Onboarding.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -379,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				93FEE75C2C15FB3F003C1798 /* OnboardingCardsCollectionViewCell.swift */,
+				93FEE7602C171A94003C1798 /* OnboardingItemOptionsTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93D110C92C121B1F00077DFB /* OnboardingPageView.swift in Sources */,
+				93FEE7612C171A94003C1798 /* OnboardingItemOptionsTableViewCell.swift in Sources */,
 				93D110A62C11FD1500077DFB /* PaymentError.swift in Sources */,
 				93D110C62C12181E00077DFB /* NetworkService.swift in Sources */,
 				93D110CF2C131C7600077DFB /* OnboardingItemsResponse+Mapping.swift in Sources */,

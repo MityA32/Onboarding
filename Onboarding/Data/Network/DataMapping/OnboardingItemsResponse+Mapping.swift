@@ -8,11 +8,17 @@
 import Foundation
 
 struct OnboardingModel: Decodable {
-    let items: [OnboardingItem]
+    let items: [OnboardingItemSetup]
 }
 
-struct OnboardingItem: Decodable {
+struct OnboardingItemSetup: Decodable {
     let id: Int
     let question: String
     let answers: [String]
+}
+
+struct OnboardingItemCellModel {
+    let id: Int
+    let question: String
+    var answers: [OnboardingTableItemCellModel]
 }

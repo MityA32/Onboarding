@@ -57,4 +57,8 @@ final class OnboardingPageView: UIView {
                        completion: nil
         )
     }
+    
+    func showSubscriptionImmediately() {
+        subscriptionPageView.transform = .identity
+    }
 }

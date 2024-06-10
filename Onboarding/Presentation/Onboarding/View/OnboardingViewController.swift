@@ -69,6 +69,21 @@ final class OnboardingViewController: UIViewController {
         onboardingPageView.subscriptionPageView.subscriptionManagerBarView.inCloseClick
             .bind(to: viewModel.inCloseClick)
             .disposed(by: onboardingPageView.subscriptionPageView.subscriptionManagerBarView.disposeBag)
+        
+        viewModel.outCurrentOptionSelected
+            .bind { [weak self] selected in
+                if let self, let selected {
+                    actionButton.setupAppearence(type: .question, isTapable: viewModel.onboardingPages[viewModel.currentPage.value.id - 1].item?.answers[selected.row].isSelected == true)
+                    guard let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView?
+                        .cellForItem(at: IndexPath(row: (viewModel.currentPage.value.id - 1), section: 0)) as? OnboardingCardsCollectionViewCell else { return }
+
+                    cell.optionsTableView.reloadData()
+                    (cell.optionsTableView.cellForRow(at: selected) as? OnboardingItemOptionsTableViewCell)?.setSelection(viewModel.onboardingPages[viewModel.currentPage.value.id - 1].item?.answers[selected.row].isSelected == true)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     private func setupDelegates() {
@@ -78,7 +93,10 @@ final class OnboardingViewController: UIViewController {
     
     private func setupPage(_ page: OnboardingPageSetup) {
         guard let viewModel else { return }
-        if page.id == viewModel.onboardingPages.count {
+        if viewModel.onboardingPages.count == 1 {
+            onboardingPageView.showSubscriptionImmediately()
+            actionButton.setupAppearence(type: .subscription)
+        } else if page.id == viewModel.onboardingPages.count {
             print(page)
             onboardingPageView.showSubscription()
             actionButton.setupAppearence(type: .subscription)
@@ -88,14 +106,9 @@ final class OnboardingViewController: UIViewController {
                 at: .centeredHorizontally,
                 animated: true)
             actionButton.setupAppearence(type: .question)
-//            if let question = page.item?.question {
-//                onboardingPageView.itemsPageView.setQuestion(question)
-//            }
         }
         
     }
-
-
 }
 
 extension OnboardingViewController: UICollectionViewDataSource {
@@ -106,6 +119,13 @@ extension OnboardingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView?.dequeueReusableCell(withReuseIdentifier: OnboardingCardsCollectionViewCell.id, for: indexPath) as! OnboardingCardsCollectionViewCell
         cell.configureCell(viewModel?.onboardingPages[indexPath.row].item)
+        if let viewModel {
+            cell.inOptionSelected
+                .compactMap { $0 }
+                .bind(to: viewModel.inOptionSelected)
+                .disposed(by: cell.disposeBag)
+        }
+        
         return cell
     }
     
@@ -129,4 +149,3 @@ extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
         }
 
 }
-

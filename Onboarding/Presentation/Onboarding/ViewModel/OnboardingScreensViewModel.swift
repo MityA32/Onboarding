@@ -17,9 +17,9 @@ enum OnboardingPageType {
 struct OnboardingPageSetup {
     let id: Int
     let type: OnboardingPageType
-    let item: OnboardingItem?
+    var item: OnboardingItemCellModel?
     
-    init(id: Int, _ type: OnboardingPageType, _ item: OnboardingItem? = nil) {
+    init(id: Int, _ type: OnboardingPageType, _ item: OnboardingItemCellModel? = nil) {
         self.id = id
         self.type = type
         self.item = item
@@ -33,7 +33,8 @@ final class OnboardingScreensViewModel {
     let inRestorePurchaseClick = PublishSubject<Void>()
     let manageOnboarding = PublishSubject<OnboardingEvent>()
     let currentPage: BehaviorRelay<OnboardingPageSetup>
-    let optionSelected = BehaviorRelay(value: false)
+    let inOptionSelected = BehaviorRelay<IndexPath?>(value: nil)
+    let outCurrentOptionSelected = BehaviorRelay<IndexPath?>(value: nil)
     
 
     let disposeBag = DisposeBag()
@@ -63,6 +64,34 @@ final class OnboardingScreensViewModel {
             .compactMap { $0 }
             .bind(to: currentPage)
             .disposed(by: disposeBag)
+        
+        inOptionSelected
+            .map { [weak self] selectedOption -> IndexPath? in
+                guard let self, let selectedOption else { return nil }
+
+                let currentIndex = self.currentPage.value.id - 1
+                guard currentIndex < self.onboardingPages.count else { return nil }
+
+                guard let currentItem = self.onboardingPages[currentIndex].item else { return nil }
+
+                if currentItem.answers[selectedOption.row].isSelected {
+
+                    self.onboardingPages[currentIndex].item?.answers[selectedOption.row].isSelected = false
+                } else {
+                    for (index, _) in currentItem.answers.enumerated() {
+                        self.onboardingPages[currentIndex].item?.answers[index].isSelected = false
+                    }
+
+                    self.onboardingPages[currentIndex].item?.answers[selectedOption.row].isSelected = true
+                }
+
+
+                return selectedOption
+            }
+            .compactMap { $0 }
+            .bind(to: outCurrentOptionSelected)
+            .disposed(by: disposeBag)
+
         
         let processPaymentObservable = inNewPageClick
             .withLatestFrom(currentPage)

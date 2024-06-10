@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import RxSwift
 
 final class OnboardingCardsCollectionViewCell: UICollectionViewCell {
     
     static let id = "\(OnboardingCardsCollectionViewCell.self)"
     
     private let questionLabel = UILabel()
-    private let optionsTableView = UITableView()
+    let optionsTableView = UITableView()
     
-    func configureCell(_ item: OnboardingItem?) {
+    let inOptionSelected = BehaviorSubject<IndexPath?>(value: nil)
+    let disposeBag = DisposeBag()
+    
+    func configureCell(_ item: OnboardingItemCellModel?) {
         guard let item else { return }
         questionLabel.text = item.question
         questionLabel.font = CustomFont.sfUIText(ofSize: 20, weight: .semibold)
@@ -33,6 +37,25 @@ final class OnboardingCardsCollectionViewCell: UICollectionViewCell {
             $0.horizontalEdges.equalToSuperview().inset(0)
             $0.bottom.equalToSuperview()
         }
+        optionsTableView.backgroundColor = .clear
+        optionsTableView.separatorStyle = .none
+        optionsTableView.rowHeight = 64
+        
+        optionsTableView.register(OnboardingItemOptionsTableViewCell.self, forCellReuseIdentifier: OnboardingItemOptionsTableViewCell.id)
+        
+        
+        
+        Observable.just(item.answers)
+            .bind(to: optionsTableView.rx.items(cellIdentifier: OnboardingItemOptionsTableViewCell.id, cellType: OnboardingItemOptionsTableViewCell.self)) { (row, element, cell) in
+                cell.configureCell(element)
+            }
+            .disposed(by: disposeBag)
+        
+        optionsTableView.rx.itemSelected
+//            .map { answers[$0.row] }
+            .bind(to: inOptionSelected)
+            .disposed(by: disposeBag)
+        
     }
     
 }

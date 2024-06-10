@@ -76,18 +76,29 @@ final class AppCoordinator: Coordinator {
                         completion(.failure(NetworkError.decodingFailed))
                         return
                     }
+
+                    var onboardingPages = onboarding.items
+                        .map { OnboardingPageSetup(
+                            id: $0.id,
+                            .question,
+                            .init(
+                                id: $0.id,
+                                question: $0.question,
+                                answers: $0.answers
+                                    .map { .init(title: $0, isSelected: false) }
+                            )
+                        )}
                     
-                    var onboardingPages = onboarding.items.map { OnboardingPageSetup(id: $0.id, .question, $0) }
                     if let lastItem = onboardingPages.last {
                         onboardingPages.append(OnboardingPageSetup(id: lastItem.id + 1, .subscription))
                     }
                     completion(.success(onboardingPages))
                 case .error(let failure):
-                    completion(.failure(failure))
+                    completion(.success([OnboardingPageSetup(id: 1, .subscription)]))
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.success([OnboardingPageSetup(id: 1, .subscription)]))
         }
     }
 }

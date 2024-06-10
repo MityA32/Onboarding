@@ -57,14 +57,15 @@ final class OnboardingActionButton: UIButton {
     
     func setupAppearence(type: OnboardingPageType, isTapable: Bool = false) {
         
-   
         
         switch type {
             case .question:
+                isUserInteractionEnabled = isTapable
                 setTitle("Continue", for: .normal)
                 setTitleColor(isTapable ? .hexFFFFFF : .hexCACACA, for: .normal)
                 layer.backgroundColor = isTapable ? UIColor.hex101B18.cgColor : UIColor.hexFFFFFF.cgColor
             case .subscription:
+                isUserInteractionEnabled = true
                 setTitle("Start Now", for: .normal)
                 setTitleColor(.hexFFFFFF, for: .normal)
                 layer.backgroundColor = UIColor.hex101B18.cgColor
