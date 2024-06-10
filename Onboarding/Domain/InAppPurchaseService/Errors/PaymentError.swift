@@ -11,6 +11,10 @@ enum PaymentError: Error {
     case cantMakePayment
     case cantRestore
     case productNotFound
+    case purchaseFailed
+    case purchasePending
+    case userCancelled
+    case unknown
 }
 
 extension PaymentError {
@@ -22,6 +26,14 @@ extension PaymentError {
                 return "PaymentError: Can't restore"
             case .productNotFound:
                 return "PaymentError: Product not found"
+            case .purchaseFailed:
+                return "PaymentError: Purchase failed"
+            case .purchasePending:
+                return "PaymentError: Purchase pending"
+            case .userCancelled:
+                return "PaymentError: User cancelled"
+            case .unknown:
+                return "PaymentError: unknown"
         }
     }
 }

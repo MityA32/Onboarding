@@ -16,9 +16,3 @@ struct OnboardingItemSetup: Decodable {
     let question: String
     let answers: [String]
 }
-
-struct OnboardingItemCellModel {
-    let id: Int
-    let question: String
-    var answers: [OnboardingTableItemCellModel]
-}

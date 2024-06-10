@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct OnboardingItemCellModel {
+    let id: Int
+    let question: String
+    var answers: [OnboardingTableItemCellModel]
+}
+
 struct OnboardingTableItemCellModel {
     let title: String
     var isSelected: Bool

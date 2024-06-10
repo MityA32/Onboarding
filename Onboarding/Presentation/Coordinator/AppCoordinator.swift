@@ -67,8 +67,7 @@ final class AppCoordinator: Coordinator {
     private func configureOnboarding(completion: @escaping (Result<[OnboardingPageSetup], Error>) -> Void) {
         do {
             let networkService = try Network<OnboardingEndpoint>(APIHost.universeappsLimited)
-            networkService.perform(.get, .onboardingItems) { [weak self] result in
-                guard let self else { return }
+            networkService.perform(.get, .onboardingItems) { result in
                 switch result {
                 case .data(let data):
                     guard let data,
@@ -101,8 +100,4 @@ final class AppCoordinator: Coordinator {
             completion(.success([OnboardingPageSetup(id: 1, .subscription)]))
         }
     }
-}
-
-enum NetworkError: Error {
-    case decodingFailed
 }

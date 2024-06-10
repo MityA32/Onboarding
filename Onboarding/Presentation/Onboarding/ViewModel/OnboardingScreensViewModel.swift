@@ -30,7 +30,6 @@ final class OnboardingScreensViewModel {
 
     let inNewPageClick = PublishSubject<Void>()
     let inCloseClick = PublishSubject<Void>()
-    let inRestorePurchaseClick = PublishSubject<Void>()
     let manageOnboarding = PublishSubject<OnboardingEvent>()
     let currentPage: BehaviorRelay<OnboardingPageSetup>
     let inOptionSelected = BehaviorRelay<IndexPath?>(value: nil)
@@ -55,7 +54,6 @@ final class OnboardingScreensViewModel {
         inNewPageClick
             .withLatestFrom(currentPage)
             .map { [weak self] page -> OnboardingPageSetup? in
-                print("hello")
                 guard let self else { return nil }
                 let nextPageIndex = currentPage.value.id + 1
                 guard nextPageIndex - 1 < self.onboardingPages.count else { return nil }
@@ -92,8 +90,7 @@ final class OnboardingScreensViewModel {
             .bind(to: outCurrentOptionSelected)
             .disposed(by: disposeBag)
 
-        
-        let processPaymentObservable = inNewPageClick
+        inNewPageClick
             .withLatestFrom(currentPage)
             .filter { [weak self] in $0.id == (self?.onboardingPages.count ?? -1)}
             .skip(1)
@@ -101,19 +98,6 @@ final class OnboardingScreensViewModel {
                self?.subscriptionService.processPayment() ?? .error(PaymentError.cantMakePayment)
             }
             .catchAndReturn(.failure(.productNotFound))
-            .flatMapLatest { [weak self] event in
-                self?.subscriptionService.outPaymentResultObservable ?? .empty()
-            }
-        let restorePurchaseObservable = inRestorePurchaseClick
-            .flatMap { [weak self] _ in
-                self?.subscriptionService.restorePayment() ?? .empty()
-            }
-            .flatMapLatest { [weak self] res in
-                self?.subscriptionService.outRestoreResultObservable ?? .empty()
-            }
-        
-        Observable
-            .merge(processPaymentObservable, restorePurchaseObservable)
             .map {
                 switch $0 {
                     case .success(_):

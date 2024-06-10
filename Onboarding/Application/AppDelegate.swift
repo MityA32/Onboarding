@@ -14,16 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        // Initialize the window
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Initialize the app coordinator with the window
         if let window {
             appCoordinator = AppCoordinator(window: window)
             appCoordinator?.start()
         }
-        
         
         return true
     }
