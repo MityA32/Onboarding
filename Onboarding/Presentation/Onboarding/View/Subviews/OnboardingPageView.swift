@@ -31,15 +31,16 @@ final class OnboardingPageView: UIView {
             $0.edges.equalToSuperview()
         }
         
-        
-    }
-    
-    func showSubscription() {
         addSubview(subscriptionPageView)
         subscriptionPageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
+        subscriptionPageView.isHidden = true
+    }
+    
+    func showSubscription() {
+        subscriptionPageView.isHidden = false
         subscriptionPageView.transform = CGAffineTransform(translationX: frame.width, y: 0)
         
         UIView.animate(withDuration: 0.5,
@@ -55,18 +56,7 @@ final class OnboardingPageView: UIView {
     }
     
     func showSubscriptionImmediately() {
-//        itemsPageView.removeFromSuperview()
-//        subscriptionPageView.removeFromSuperview()
-        addSubview(subscriptionPageView)
-        subscriptionPageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        subscriptionPageView.transform = .identity
-//        addSubview(subscriptionPageView)
-//        subscriptionPageView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-//        subscriptionPageView.transform = CGAffineTransform(translationX: 0, y: 0)
-                        
+        itemsPageView.removeFromSuperview()
+        subscriptionPageView.isHidden = false
     }
 }
