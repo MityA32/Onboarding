@@ -9,9 +9,6 @@ import UIKit
 
 final class OnboardingActionButton: UIButton {
     
-    private let customTitleLabel = UILabel()
-    private let background = UIView()
-    
     init() {
         super.init(frame: .zero)
         setup()
@@ -33,22 +30,7 @@ final class OnboardingActionButton: UIButton {
 
     
     private func setup() {
-        setupLayout()
         setupViews()
-    }
-    
-    private func setupLayout() {
-//        addSubview(background)
-//        background.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-//
-//        addSubview(customTitleLabel)
-//        customTitleLabel.snp.makeConstraints {
-//            $0.centerY.equalTo(snp.centerY)
-//            $0.horizontalEdges.equalTo(snp.horizontalEdges)
-//            $0.height.equalTo(20)
-//        }
     }
     
     private func setupViews() {
