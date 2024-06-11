@@ -93,7 +93,7 @@ final class OnboardingViewController: UIViewController {
     
     private func setupPage(_ page: OnboardingPageSetup) {
         guard let viewModel else { return }
-        if viewModel.onboardingPages.count == 1 {
+        if viewModel.onboardingPages.count == 1 && viewModel.onboardingPages[0].type == .subscription {
             onboardingPageView.showSubscriptionImmediately()
             actionButton.setupAppearence(type: .subscription)
         } else if page.id == viewModel.onboardingPages.count {

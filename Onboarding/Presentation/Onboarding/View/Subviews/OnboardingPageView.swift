@@ -21,12 +21,6 @@ final class OnboardingPageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        subscriptionPageView.transform = CGAffineTransform(translationX: frame.width, y: 0)
-    }
-    
     private func setup() {
         setupLayout()
     }
@@ -37,16 +31,18 @@ final class OnboardingPageView: UIView {
             $0.edges.equalToSuperview()
         }
         
+        
+    }
+    
+    func showSubscription() {
         addSubview(subscriptionPageView)
         subscriptionPageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
         subscriptionPageView.transform = CGAffineTransform(translationX: frame.width, y: 0)
-    }
-    
-    func showSubscription() {
-        UIView.animate(withDuration: 0.5, 
+        
+        UIView.animate(withDuration: 0.5,
                        delay: 0,
                        options: [],
                        animations: { [weak self] in
@@ -59,6 +55,18 @@ final class OnboardingPageView: UIView {
     }
     
     func showSubscriptionImmediately() {
+//        itemsPageView.removeFromSuperview()
+//        subscriptionPageView.removeFromSuperview()
+        addSubview(subscriptionPageView)
+        subscriptionPageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         subscriptionPageView.transform = .identity
+//        addSubview(subscriptionPageView)
+//        subscriptionPageView.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
+//        subscriptionPageView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        
     }
 }

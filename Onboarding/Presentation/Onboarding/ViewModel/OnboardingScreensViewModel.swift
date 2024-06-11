@@ -53,18 +53,17 @@ final class OnboardingScreensViewModel {
     private func setupRx() {
         inNewPageClick
             .withLatestFrom(currentPage)
-            .map { [weak self] page -> OnboardingPageSetup? in
+            .compactMap { [weak self] page -> OnboardingPageSetup? in
                 guard let self else { return nil }
                 let nextPageIndex = currentPage.value.id + 1
                 guard nextPageIndex - 1 < self.onboardingPages.count else { return nil }
                 return self.onboardingPages[nextPageIndex - 1]
             }
-            .compactMap { $0 }
             .bind(to: currentPage)
             .disposed(by: disposeBag)
         
         inOptionSelected
-            .map { [weak self] selectedOption -> IndexPath? in
+            .compactMap { [weak self] selectedOption -> IndexPath? in
                 guard let self, let selectedOption else { return nil }
 
                 let currentIndex = self.currentPage.value.id - 1
@@ -86,7 +85,6 @@ final class OnboardingScreensViewModel {
 
                 return selectedOption
             }
-            .compactMap { $0 }
             .bind(to: outCurrentOptionSelected)
             .disposed(by: disposeBag)
 

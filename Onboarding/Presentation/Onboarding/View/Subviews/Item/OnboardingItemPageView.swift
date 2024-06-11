@@ -9,10 +9,8 @@ import UIKit
 
 final class OnboardingItemPageView: UIView {
     
-    
     private let titleLabel = UILabel()
     var onboardingItemsCollectionView: UICollectionView?
-    
     
     init() {
         super.init(frame: .zero)
