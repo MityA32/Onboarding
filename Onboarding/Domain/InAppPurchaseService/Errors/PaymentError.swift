@@ -9,7 +9,6 @@ import Foundation
 
 enum PaymentError: Error {
     case cantMakePayment
-    case cantRestore
     case productNotFound
     case purchaseFailed
     case purchasePending
@@ -22,8 +21,6 @@ extension PaymentError {
         switch self {
             case .cantMakePayment:
                 return "PaymentError: Can't make payment"
-            case .cantRestore:
-                return "PaymentError: Can't restore"
             case .productNotFound:
                 return "PaymentError: Product not found"
             case .purchaseFailed:

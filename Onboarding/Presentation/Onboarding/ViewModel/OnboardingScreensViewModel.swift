@@ -51,6 +51,12 @@ final class OnboardingScreensViewModel {
     }
     
     private func setupRx() {
+        setupPagesFlowRx()
+        setupOptionSelectionRx()
+        setupSubscriptionRx()
+    }
+    
+    private func setupPagesFlowRx() {
         inNewPageClick
             .withLatestFrom(currentPage)
             .compactMap { [weak self] page -> OnboardingPageSetup? in
@@ -62,6 +68,13 @@ final class OnboardingScreensViewModel {
             .bind(to: currentPage)
             .disposed(by: disposeBag)
         
+        inCloseClick
+            .map { _ in .pop }
+            .bind(to: manageOnboarding)
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupOptionSelectionRx() {
         inOptionSelected
             .compactMap { [weak self] selectedOption -> IndexPath? in
                 guard let self, let selectedOption else { return nil }
@@ -82,12 +95,13 @@ final class OnboardingScreensViewModel {
                     self.onboardingPages[currentIndex].item?.answers[selectedOption.row].isSelected = true
                 }
 
-
                 return selectedOption
             }
             .bind(to: outCurrentOptionSelected)
             .disposed(by: disposeBag)
-
+    }
+    
+    private func setupSubscriptionRx() {
         inNewPageClick
             .withLatestFrom(currentPage)
             .filter { [weak self] in $0.id == (self?.onboardingPages.count ?? -1)}
@@ -106,12 +120,6 @@ final class OnboardingScreensViewModel {
             }
             .bind(to: manageOnboarding)
             .disposed(by: disposeBag)
-        
-        inCloseClick
-            .map { _ in .pop }
-            .bind(to: manageOnboarding)
-            .disposed(by: disposeBag)
-
     }
 }
 

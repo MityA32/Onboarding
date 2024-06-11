@@ -4,7 +4,7 @@ import RxCocoa
 
 final class AppCoordinator: Coordinator {
     private var window: UIWindow
-    var navigationController = UINavigationController()
+    let navigationController = UINavigationController()
     
     private let disposeBag = DisposeBag()
     

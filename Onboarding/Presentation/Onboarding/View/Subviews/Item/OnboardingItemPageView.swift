@@ -10,7 +10,12 @@ import UIKit
 final class OnboardingItemPageView: UIView {
     
     private let titleLabel = UILabel()
-    var onboardingItemsCollectionView: UICollectionView?
+    let onboardingItemsCollectionView: UICollectionView = {
+        let carouselLayout = UICollectionViewFlowLayout()
+        carouselLayout.scrollDirection = .horizontal
+        carouselLayout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        return UICollectionView(frame: .zero, collectionViewLayout: carouselLayout)
+    }()
     
     init() {
         super.init(frame: .zero)
@@ -38,13 +43,7 @@ final class OnboardingItemPageView: UIView {
     }
     
     private func setupOnboardingCardsCollectionView() {
-        let carouselLayout = UICollectionViewFlowLayout()
-        carouselLayout.scrollDirection = .horizontal
-//        carouselLayout.minimumInteritemSpacing = 48
-        carouselLayout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-        onboardingItemsCollectionView = UICollectionView(frame: frame, collectionViewLayout: carouselLayout)
         
-        guard let onboardingItemsCollectionView else { return }
         onboardingItemsCollectionView.isScrollEnabled = false
         onboardingItemsCollectionView.backgroundColor = .clear
         onboardingItemsCollectionView.showsHorizontalScrollIndicator = false
@@ -59,6 +58,5 @@ final class OnboardingItemPageView: UIView {
         }
         
     }
-    
     
 }

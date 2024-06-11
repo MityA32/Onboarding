@@ -73,12 +73,22 @@ final class OnboardingViewController: UIViewController {
         viewModel.outCurrentOptionSelected
             .bind { [weak self] selected in
                 if let self, let selected {
-                    actionButton.setupAppearence(type: .question, isTapable: viewModel.onboardingPages[viewModel.currentPage.value.id - 1].item?.answers[selected.row].isSelected == true)
-                    guard let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView?
+                    actionButton.setupAppearence(
+                        type: .question,
+                        isTapable: viewModel
+                            .onboardingPages[viewModel.currentPage.value.id - 1].item?
+                            .answers[selected.row].isSelected == true
+                    )
+                    guard let cell = onboardingPageView
+                        .itemsPageView.onboardingItemsCollectionView
                         .cellForItem(at: IndexPath(row: (viewModel.currentPage.value.id - 1), section: 0)) as? OnboardingCardsCollectionViewCell else { return }
 
                     cell.optionsTableView.reloadData()
-                    (cell.optionsTableView.cellForRow(at: selected) as? OnboardingItemOptionsTableViewCell)?.setSelection(viewModel.onboardingPages[viewModel.currentPage.value.id - 1].item?.answers[selected.row].isSelected == true)
+                    (cell.optionsTableView.cellForRow(at: selected) as? OnboardingItemOptionsTableViewCell)?
+                        .setSelection(viewModel
+                            .onboardingPages[viewModel.currentPage.value.id - 1].item?
+                            .answers[selected.row].isSelected == true
+                        )
                 }
             }
             .disposed(by: disposeBag)
@@ -87,8 +97,8 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupDelegates() {
-        onboardingPageView.itemsPageView.onboardingItemsCollectionView?.dataSource = self
-        onboardingPageView.itemsPageView.onboardingItemsCollectionView?.delegate = self
+        onboardingPageView.itemsPageView.onboardingItemsCollectionView.dataSource = self
+        onboardingPageView.itemsPageView.onboardingItemsCollectionView.delegate = self
     }
     
     private func setupPage(_ page: OnboardingPageSetup) {
@@ -101,10 +111,11 @@ final class OnboardingViewController: UIViewController {
             onboardingPageView.showSubscription()
             actionButton.setupAppearence(type: .subscription)
         } else {
-            onboardingPageView.itemsPageView.onboardingItemsCollectionView?.scrollToItem(
+            onboardingPageView.itemsPageView.onboardingItemsCollectionView.scrollToItem(
                 at: IndexPath(item: page.id - 1, section: 0),
                 at: .centeredHorizontally,
-                animated: true)
+                animated: true
+            )
             actionButton.setupAppearence(type: .question)
         }
         
@@ -117,7 +128,8 @@ extension OnboardingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView?.dequeueReusableCell(withReuseIdentifier: OnboardingCardsCollectionViewCell.id, for: indexPath) as! OnboardingCardsCollectionViewCell
+        let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView
+            .dequeueReusableCell(withReuseIdentifier: OnboardingCardsCollectionViewCell.id, for: indexPath) as! OnboardingCardsCollectionViewCell
         cell.configureCell(viewModel?.onboardingPages[indexPath.row].item)
         if let viewModel {
             cell.inOptionSelected

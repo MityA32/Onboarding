@@ -19,8 +19,12 @@ final class OnboardingItemOptionsTableViewCell: UITableViewCell {
         
         
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0))
-//        background.layer.backgroundColor = UIColor.hexFFFFFF.cgColor
         background.layer.cornerRadius = 16
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
     }
     
     func configureCell(_ element: OnboardingTableItemCellModel) {

@@ -16,7 +16,13 @@ final class OnboardingCardsCollectionViewCell: UICollectionViewCell {
     let optionsTableView = UITableView()
     
     let inOptionSelected = BehaviorSubject<IndexPath?>(value: nil)
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.questionLabel.text = ""
+        self.disposeBag = .init()
+    }
     
     func configureCell(_ item: OnboardingItemCellModel?) {
         guard let item else { return }

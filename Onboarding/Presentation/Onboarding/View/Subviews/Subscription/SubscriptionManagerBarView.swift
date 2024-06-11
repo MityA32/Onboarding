@@ -11,10 +11,8 @@ import RxSwift
 
 final class SubscriptionManagerBarView: UIView {
     
-    private let restorePurchaseButtonView = UIButton()
     private let closeScreenButton = UIButton()
     
-    let inRestorePurchaseClick = PublishSubject<Void>()
     let inCloseClick = PublishSubject<Void>()
     let disposeBag = DisposeBag()
     
