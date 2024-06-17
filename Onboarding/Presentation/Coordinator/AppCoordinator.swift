@@ -24,42 +24,11 @@ final class AppCoordinator: Coordinator {
             guard let self else { return }
             
             switch result {
-            case .success(let pages):
-                DispatchQueue.main.async { [weak self] in
-                    let onboardingViewModel = OnboardingScreensViewModel(
-                        subscriptionService: InAppPurchaseService(), pages: pages)
-                    let onboardingViewController = OnboardingViewController()
-                    onboardingViewController.viewModel = onboardingViewModel
+                case .success(let pages):
+                    manageOnboarding(for: pages)
                     
-                    onboardingViewModel.manageOnboarding
-                        .observe(on: MainScheduler.instance)
-                        .bind { action in
-                            switch action {
-                            case .pop:
-                                self?.navigationController.viewControllers = []
-                                print("Close Onboarding")
-                            case .push:
-                                print("Push to next")
-                            case .paymentFailed(let error):
-                                let paymentFailedAlert = UIAlertController(title: "Error", message: error.title, preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default)
-                                paymentFailedAlert.addAction(okAction)
-                                self?.navigationController.present(paymentFailedAlert, animated: true)
-                                print("Payment failed")
-                            }
-                        }
-                        .disposed(by: onboardingViewModel.disposeBag)
-                    
-                    self?.navigationController.viewControllers = [onboardingViewController]
-                }
-                
-            case .failure(let error):
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default)
-                alert.addAction(okAction)
-                DispatchQueue.main.async { [weak self] in
-                    self?.navigationController.present(alert, animated: true)
-                }
+                case .failure(let error):
+                    showErrorAlert(with: error.localizedDescription)
             }
         }
     }
@@ -67,7 +36,8 @@ final class AppCoordinator: Coordinator {
     private func configureOnboarding(completion: @escaping (Result<[OnboardingPageSetup], Error>) -> Void) {
         do {
             let networkService = try Network<OnboardingEndpoint>(APIHost.universeappsLimited)
-            networkService.perform(.get, .onboardingItems) { result in
+            networkService.perform(.get, .onboardingItems) { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .data(let data):
                     guard let data,
@@ -76,28 +46,66 @@ final class AppCoordinator: Coordinator {
                         return
                     }
 
-                    var onboardingPages = onboarding.items
-                        .map { OnboardingPageSetup(
-                            id: $0.id,
-                            .question,
-                            .init(
-                                id: $0.id,
-                                question: $0.question,
-                                answers: $0.answers
-                                    .map { .init(title: $0, isSelected: false) }
-                            )
-                        )}
+                    var onboardingPages = onboardingPages(from: onboarding)
                     
                     if let lastItem = onboardingPages.last {
                         onboardingPages.append(OnboardingPageSetup(id: lastItem.id + 1, .subscription))
                     }
                     completion(.success(onboardingPages))
-                case .error(let failure):
+                case .error(_):
                     completion(.success([OnboardingPageSetup(id: 1, .subscription)]))
                 }
             }
         } catch {
             completion(.success([OnboardingPageSetup(id: 1, .subscription)]))
         }
+    }
+    
+    private func manageOnboarding(for pages: [OnboardingPageSetup]) {
+        DispatchQueue.main.async { [weak self] in
+            let onboardingViewModel = OnboardingScreensViewModel(
+                subscriptionService: InAppPurchaseService(), pages: pages)
+            let onboardingViewController = OnboardingViewController(viewModel: onboardingViewModel)
+            
+            onboardingViewModel.manageOnboarding
+                .observe(on: MainScheduler.instance)
+                .bind { [weak self] action in
+                    switch action {
+                    case .pop:
+                        self?.navigationController.viewControllers = []
+                        print("Close Onboarding")
+                    case .push:
+                        print("Push to next")
+                    case .paymentFailed(let error):
+                        self?.showErrorAlert(with: error.title)
+                    }
+                }
+                .disposed(by: onboardingViewModel.disposeBag)
+            
+            self?.navigationController.viewControllers = [onboardingViewController]
+        }
+    }
+    
+    private func showErrorAlert(with errorMessage: String) {
+        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController.present(alert, animated: true)
+        }
+    }
+    
+    private func onboardingPages(from model: OnboardingModel) -> [OnboardingPageSetup] {
+        model.items
+            .map { OnboardingPageSetup(
+                id: $0.id,
+                .question,
+                .init(
+                    id: $0.id,
+                    question: $0.question,
+                    answers: $0.answers
+                        .map { .init(title: $0, isSelected: false) }
+                )
+            )}
     }
 }

@@ -15,11 +15,18 @@ final class OnboardingViewController: UIViewController {
     private let onboardingPageView = OnboardingPageView()
     private let actionButton = OnboardingActionButton()
 
-    var viewModel: OnboardingScreensViewModel? {
-        didSet {
-            setup()
-        }
+    var viewModel: OnboardingScreensViewModel
+    
+    init(viewModel: OnboardingScreensViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        setup()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     
     private let disposeBag = DisposeBag()
     
@@ -55,7 +62,6 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupRx() {
-        guard let viewModel else { return }
         viewModel.currentPage
             .bind { [weak self] page in
                 self?.setupPage(page)
@@ -102,7 +108,6 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func setupPage(_ page: OnboardingPageSetup) {
-        guard let viewModel else { return }
         if viewModel.onboardingPages.count == 1 && viewModel.onboardingPages[0].type == .subscription {
             onboardingPageView.showSubscriptionImmediately()
             actionButton.setupAppearence(type: .subscription)
@@ -124,19 +129,17 @@ final class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel?.onboardingPages.filter { $0.type == .question }.count ?? 0
+        viewModel.onboardingPages.filter { $0.type == .question }.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = onboardingPageView.itemsPageView.onboardingItemsCollectionView
             .dequeueReusableCell(withReuseIdentifier: OnboardingCardsCollectionViewCell.id, for: indexPath) as! OnboardingCardsCollectionViewCell
-        cell.configureCell(viewModel?.onboardingPages[indexPath.row].item)
-        if let viewModel {
-            cell.inOptionSelected
-                .compactMap { $0 }
-                .bind(to: viewModel.inOptionSelected)
-                .disposed(by: cell.disposeBag)
-        }
+        cell.configureCell(viewModel.onboardingPages[indexPath.row].item)
+        cell.inOptionSelected
+            .compactMap { $0 }
+            .bind(to: viewModel.inOptionSelected)
+            .disposed(by: cell.disposeBag)
         
         return cell
     }
